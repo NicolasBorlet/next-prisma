@@ -1,0 +1,8 @@
+# POST Request to add new Pilote
+POST http://localhost:3000/api/pilotes
+Content-Type: application/json
+
+{
+    "name": "Nouveau Pilote",
+    "age": 25
+}
