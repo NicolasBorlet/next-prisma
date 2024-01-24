@@ -1,4 +1,5 @@
 'use client';
+import Link from "next/link";
 // import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 
@@ -16,17 +17,11 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
-      <h1>Pilotes</h1>
-      <div>
-        {data.map((pilote: {id: string, name: string}) => (
-          <a
-            key={pilote.id}
-          >
-            <h3>{pilote.name}</h3>
-          </a>
-        ))}
-      </div>      
+    <main className="flex justify-center items-center flex-col h-screen">
+      <h1>Bienvenu sur le site référence des pilotes</h1>
+      <Link href="/pilotes">
+        Voir les pilotes
+      </Link>
     </main>
   );
 }

@@ -10,15 +10,17 @@ export async function GET(
     return NextResponse.json({ pilotes })
 }
 
-export async function POST(
-  req: NextRequest
-) {
-    const newPilote = await prisma.pilote.create({
-        data: {
-            name: "test",
-            age: 18
-        }
-    })
-    
-    return NextResponse.json({ newPilote })
+export async function POST(req: NextRequest) {
+  // Extraction des données du corps de la requête
+  const { name, age } = await req.json();
+
+  // Création d'un nouveau pilote avec les données de la requête
+  const newPilote = await prisma.pilote.create({
+    data: {
+      name,
+      age,
+    },
+  });
+
+  return NextResponse.json({ newPilote });
 }

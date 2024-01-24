@@ -16,15 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className} style={{
-        margin: 0,
-        padding: 0,
-        fontWeight: 400,
-        fontSize: 16,
-        lineHeight: 1.5,
-        color: "#333",
-        minHeight: "100vh",
-      }}>{children}</body>
+      <body className="min-h-[100vh]">{children}</body>
     </html>
   );
 }
