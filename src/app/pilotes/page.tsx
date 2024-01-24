@@ -1,16 +1,12 @@
-'use client';
+"use client";
 
+import { PiloteProps } from "@/types/PiloteProps";
+import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
-
-interface PiloteProps {
-  id: number;
-  name: string;
-  age: number;
-}
 
 export default function Pilotes() {
   const [data, setData] = useState([]);
-  const [newPiloteName, setNewPiloteName] = useState(""); 
+  const [newPiloteName, setNewPiloteName] = useState("");
   const [newPiloteAge, setNewPiloteAge] = useState(0);
 
   useEffect(() => {
@@ -18,8 +14,8 @@ export default function Pilotes() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        
-        setData(data.pilotes)
+
+        setData(data.pilotes);
       });
   }, []);
 
@@ -48,35 +44,43 @@ export default function Pilotes() {
   };
 
   return (
-    <main>
-      <h1>Pilotes</h1>
-      <div>
-        {data.map((pilote: PiloteProps) => (
-          <a key={pilote.id}>
-            <h3>{pilote.name}</h3>
-          </a>
-        ))}
+    <main className="w-full px-16 py-10">
+      <div className="flex flex-row justify-between gap-10">
+        <div className="flex flex-1 border rounded-xl border-red-200 p-3 flex-col justify-start items-start">
+          <h1 className="mb-3">Pilotes</h1>
+          <div className="flex flex-col">
+            {data.map((pilote: PiloteProps) => (
+             <Link href={`/pilotes/${pilote.id}`} key={pilote.id}>
+                  {pilote.name} ({pilote.age} ans)
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col gap-3 border rounded-xl border-red-200 p-3">
+          <h1>Ajouter un pilote</h1>
+          <form onSubmit={handleSubmit} className="flex flex-col text-center justify-center items-center">
+            <label htmlFor="name">Nom du pilote</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={newPiloteName}
+              onChange={(event) => setNewPiloteName(event.target.value)}
+            />
+            <label htmlFor="age">Âge du pilote</label>
+            <input
+              id="age"
+              name="age"
+              type="number"
+              value={newPiloteAge}
+              onChange={(event) =>
+                setNewPiloteAge(parseInt(event.target.value, 10))
+              }
+            />
+            <button type="submit" className="mt-4 px-4 py-1 border rounded-xl border-red-200 w-fit">Ajouter</button>
+          </form>
+        </div>
       </div>
-      <h1>Ajouter un pilote</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Nom du pilote</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          value={newPiloteName}
-          onChange={(event) => setNewPiloteName(event.target.value)}
-        />
-        <label htmlFor="age">Âge du pilote</label>
-        <input
-          id="age"
-          name="age"
-          type="number"
-          value={newPiloteAge}
-          onChange={(event) => setNewPiloteAge(parseInt(event.target.value, 10))}
-        />
-        <button type="submit">Ajouter</button>
-      </form>
     </main>
   );
 }
