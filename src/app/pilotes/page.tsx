@@ -1,6 +1,6 @@
 'use client';
-// import styles from "./page.module.css";
-import { useEffect, useState } from "react";
+
+import { FormEvent, useEffect, useState } from "react";
 
 interface PiloteProps {
   id: number;
@@ -23,7 +23,7 @@ export default function Pilotes() {
       });
   }, []);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     // Envoi de la requête POST pour créer un nouveau pilote
@@ -34,7 +34,7 @@ export default function Pilotes() {
       },
       body: JSON.stringify({
         name: newPiloteName,
-        age: 18, // Vous pouvez ajuster l'âge selon vos besoins
+        age: newPiloteAge, // Vous pouvez ajuster l'âge selon vos besoins
       }),
     });
 
@@ -73,7 +73,7 @@ export default function Pilotes() {
           name="age"
           type="number"
           value={newPiloteAge}
-          onChange={(event) => setNewPiloteAge(event.target.value)}
+          onChange={(event) => setNewPiloteAge(parseInt(event.target.value, 10))}
         />
         <button type="submit">Ajouter</button>
       </form>
